@@ -1,16 +1,29 @@
-type User = {
-  name: string;
-}
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { fetchUsers } from "../store";
+import Skeleton from "./Skeleton";
 
-type UserListProps = {
-  lists?: User[];
-}
+export default function UserList() {
+  const dispatch = useAppDispatch()
+  const { isLoading, data, error } = useAppSelector(state => state.users)
 
-export default function UserList({ lists = [] }: UserListProps) {
-  return <>{lists.map(list => {
+  useEffect(() => {
+    dispatch(fetchUsers())
+  }, [dispatch])
+
+
+  if (isLoading) {
+    return <Skeleton times={6} />
+  }
+
+  if (error) {
+    return <>{error.message}</>
+  }
+
+  return <>{data.map(user => {
     return (
-      <div key={list.name}>
-        {list.name}
+      <div key={user.id}>
+        {user.name}
       </div>
     )
   })}</>

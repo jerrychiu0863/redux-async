@@ -7,7 +7,7 @@ function App() {
   console.log(JSON.stringify(state))
   return (
     <div className="container mx-auto">
-      <Button primary outline>Button</Button>
+      {/* <Button primary outline>Button</Button> */}
       <UserList />
     </div>
   )
