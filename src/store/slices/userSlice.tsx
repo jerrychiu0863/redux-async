@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunks/fetchUsers";
+import { addUser } from "../thunks/addUser";
 
 export type User = {
   id: number;
@@ -36,6 +37,25 @@ const userSlice = createSlice({
       state.data = action.payload
     })
     builder.addCase(fetchUsers.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = { message: action.error.message || 'error' }
+
+      // state.error = action.error;
+      console.log(action)
+    })
+
+    // Add user
+    builder.addCase(addUser.pending, (state) => {
+      // Update state object however appropriate
+      // to show the user what we are doing
+      state.isLoading = true
+
+    });
+    builder.addCase(addUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data.push(action.payload)
+    })
+    builder.addCase(addUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = { message: action.error.message || 'error' }
 

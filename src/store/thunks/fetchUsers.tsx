@@ -13,7 +13,7 @@ export const fetchUsers = createAsyncThunk<User[], void, { rejectValue: string }
   const { data, status } = await axios.get('http://localhost:3005/users') as ResponseType;
 
   // DEV ONLU
-  await pause(90000)
+  await pause(1000)
 
   if (status < 200 || status >= 300) {
     return rejectWithValue('An unknow error!')

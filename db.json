@@ -1,5 +1,22 @@
 {
-  "users":[{"id":1,"name": "John"}],
-  "albums":[],
+  "users": [
+    {
+      "id": "1",
+      "name": "John"
+    },
+    {
+      "id": "2b77",
+      "name": "Miss Julius Schuppe"
+    },
+    {
+      "id": "bc25",
+      "name": "Yvonne Zemlak"
+    },
+    {
+      "id": "3240",
+      "name": "Roderick Ullrich II"
+    }
+  ],
+  "albums": [],
   "photos": []
 }
