@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { fetchUsers, addUser, deleteUser } from "../store";
+import { fetchUsers, addUser } from "../store";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
+import UserListItem from "./UserListItem";
 import { useThunk } from "../hooks/use-thunk";
-import { User } from "../store/slices/userSlice";
-
 
 export default function UserList() {
   const [doFetchUser, isLoadingUser, loadingUserError] = useThunk(fetchUsers);
@@ -26,10 +25,6 @@ export default function UserList() {
     doAddUser()
   }
 
-  const handleUserDelete = (user: User) => {
-    dispatch(deleteUser(user))
-  }
-
   let content;
   if (isLoadingUser) {
     content = <Skeleton times={6} className="h-10 w-full" />
@@ -38,15 +33,8 @@ export default function UserList() {
     content = <>{message}</>
   } else {
     content = data.map((user) => {
-      const { id, name } = user
-      return (
-        <div key={id} className="mb-2 border rounded">
-          <div className="flex p-2 justify-between items-center cursor-pointer">
-            <div className="flex items-center"><Button onClick={() => handleUserDelete(user)} className="mr-3">X</Button>{name}</div>
-            <div>V</div>
-          </div>
-        </div>
-      )
+      // const { id, name } = user
+      return (<UserListItem key={user.id} user={user} />)
     })
   }
 

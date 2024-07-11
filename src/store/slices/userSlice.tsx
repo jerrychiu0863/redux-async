@@ -79,7 +79,6 @@ const userSlice = createSlice({
     builder.addCase(deleteUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = { message: action.error.message || 'error' }
-
       // state.error = action.error;
       console.log(action)
     })
