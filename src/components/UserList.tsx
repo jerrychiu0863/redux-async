@@ -1,57 +1,66 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { fetchUsers, addUser } from "../store";
+import { fetchUsers, addUser, deleteUser } from "../store";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
+import { useThunk } from "../hooks/use-thunk";
+import { User } from "../store/slices/userSlice";
+
 
 export default function UserList() {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [errorLoadingUsers, setErrorLoadingUsers] = useState<null | { message: string }>(null)
+  const [doFetchUser, isLoadingUser, loadingUserError] = useThunk(fetchUsers);
+  const [doAddUser, isAddingUser, addUserError] = useThunk(addUser)
+  // const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+  // const [loadingUsersError, setLoadingUsersError] = useState<null | { message: string }>(null)
+  // const [isCreatingUser, setIsCreatingUser] = useState(false)
+  // const [creatingUsersError, setCreatingUsersError] = useState<null | { message: string }>(null)
   const dispatch = useAppDispatch()
   const { data } = useAppSelector(state => state.users)
 
 
   useEffect(() => {
-    setIsLoadingUsers(true)
-    // dispatch thunk function returns a promise that doesn't work in the tradiontion way
-    // using unwrap to return a new promise that can use then and catch methods
-    dispatch(fetchUsers())
-      .unwrap()
-      .then(() => { setIsLoadingUsers(false) })
-      .catch((error) => { setIsLoadingUsers(false); setErrorLoadingUsers(error) })
+    doFetchUser()
   }, [dispatch])
 
   const handleUserAdd = () => {
-    dispatch(addUser())
+    doAddUser()
   }
 
-  const renderUsers = data.map(({ id, name }) => {
-    return (
-      <div key={id} className="mb-2 border rounded">
-        <div className="flex p-2 justify-between items-center cursor-pointer">
-          <div>{name}</div>
-          <div>X</div>
+  const handleUserDelete = (user: User) => {
+    dispatch(deleteUser(user))
+  }
+
+  let content;
+  if (isLoadingUser) {
+    content = <Skeleton times={6} className="h-10 w-full" />
+  } else if (loadingUserError) {
+    const { message } = loadingUserError
+    content = <>{message}</>
+  } else {
+    content = data.map((user) => {
+      const { id, name } = user
+      return (
+        <div key={id} className="mb-2 border rounded">
+          <div className="flex p-2 justify-between items-center cursor-pointer">
+            <div className="flex items-center"><Button onClick={() => handleUserDelete(user)} className="mr-3">X</Button>{name}</div>
+            <div>V</div>
+          </div>
         </div>
-      </div>
-    )
-  })
-
-
-  if (isLoadingUsers) {
-    return <Skeleton times={6} className="h-10 w-full" />
-  }
-
-  if (errorLoadingUsers) {
-    return <>{errorLoadingUsers.message}</>
+      )
+    })
   }
 
   return (
     <>
       <div className="flex justify-between items-center mb-3">
         <p>Users</p>
-        <Button primary onClick={handleUserAdd}>Add User</Button>
+        <Button primary onClick={handleUserAdd} loading={isAddingUser}>Add User</Button>
+        {addUserError && 'Creating user error'}
       </div>
-      {renderUsers}
+      {/* {isLoadingUser && <Skeleton times={6} className="h-10 w-full" />}
+      {loadingUserError && 'Error'}
+      {(!isAddingUser && !loadingUserError) && renderUsers} */}
+      {content}
     </>
   )
 }

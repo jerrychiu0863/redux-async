@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunks/fetchUsers";
 import { addUser } from "../thunks/addUser";
+import { deleteUser } from "../thunks/deleteUser";
 
 export type User = {
   id: number;
@@ -56,6 +57,26 @@ const userSlice = createSlice({
       state.data.push(action.payload)
     })
     builder.addCase(addUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = { message: action.error.message || 'error' }
+
+      // state.error = action.error;
+      console.log(action)
+    })
+
+    // Delete User
+    builder.addCase(deleteUser.pending, (state) => {
+      // Update state object however appropriate
+      // to show the user what we are doing
+      state.isLoading = true
+
+    });
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const updatedUsers = state.data.filter(user => user.id !== action.payload.id)
+      state.data = updatedUsers
+    })
+    builder.addCase(deleteUser.rejected, (state, action) => {
       state.isLoading = false;
       state.error = { message: action.error.message || 'error' }
 
