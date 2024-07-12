@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import type { User } from "../slices/userSlice";
+import type { User } from "../../type";
 
 export type ResponseType = {
   data: User[];

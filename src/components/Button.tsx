@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import className from 'classnames';
-import { twMerge } from 'tailwind-merge'
-import { GoSync } from 'react-icons/go'
+import { twMerge } from 'tailwind-merge';
+import { GoSync } from 'react-icons/go';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;

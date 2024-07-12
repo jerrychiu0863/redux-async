@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { faker } from "@faker-js/faker";
-import type { User } from "../slices/userSlice";
+import type { User } from "../../type";
 
 type ResponseType = {
   data: User;

@@ -2,11 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunks/fetchUsers";
 import { addUser } from "../thunks/addUser";
 import { deleteUser } from "../thunks/deleteUser";
+import type { User } from "../../type";
 
-export type User = {
-  id: number;
-  name: string;
-}
 
 type UserState = {
   data: User[];

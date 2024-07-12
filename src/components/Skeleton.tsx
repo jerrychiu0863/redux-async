@@ -2,8 +2,6 @@ import classNames from "classnames";
 import { twMerge } from "tailwind-merge";
 
 export default function Skeleton({ times, className }: { times: number, className: string }) {
-
-
   const boxes = Array(times).fill(0).map((_, i) => {
     const outerClasses = twMerge(classNames(
       'relative',
@@ -29,6 +27,5 @@ export default function Skeleton({ times, className }: { times: number, classNam
       </div>
     )
   })
-
   return boxes
 }

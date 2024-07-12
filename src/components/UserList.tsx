@@ -1,10 +1,14 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../hooks";
+// redux
 import { fetchUsers, addUser } from "../store";
-import Skeleton from "./Skeleton";
-import Button from "./Button";
-import UserListItem from "./UserListItem";
+// hooks
 import { useThunk } from "../hooks/use-thunk";
+import { useAppDispatch, useAppSelector } from "../hooks";
+// components
+import Button from "./Button";
+import Skeleton from "./Skeleton";
+import UserListItem from "./UserListItem";
+
 
 export default function UserList() {
   const [doFetchUser, isLoadingUser, loadingUserError] = useThunk(fetchUsers);
