@@ -28,6 +28,7 @@ export default function UserListItem({ user }: UserListItemProps) {
       <Button onClick={() => handleUserDelete(user)} className="mr-3" loading={isDeletingUser}>
         <GoTrashcan />
       </Button>
+      {deleteUserError && 'Eorror deleting user...'}
       {name}
     </>
 
