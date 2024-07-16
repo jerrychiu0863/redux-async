@@ -1,8 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { User } from "../../type";
+import { faker } from "@faker-js/faker";
 
 type Album = {
-  name: string;
+  title: string;
+  id: string;
+  userId: string;
 }
 
 const albumsApi = createApi({
@@ -17,6 +20,18 @@ const albumsApi = createApi({
             userId: user.id
           },
           method: 'GET'
+        }
+      }
+    }),
+    addAlbum: builder.mutation<Album, User>({
+      query(user) {
+        return {
+          url: '/albums',
+          method: 'POST',
+          body: {
+            userId: user.id,
+            title: faker.commerce.productName()
+          }
         }
       }
     })
