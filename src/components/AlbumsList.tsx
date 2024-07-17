@@ -12,7 +12,7 @@ type AblumsListProps = {
 function AlbumsList({ user }: AblumsListProps) {
   const { data, error, isLoading } = albumsApi.useFetchAlbumsQuery(user)
   const [addAlbum, results] = albumsApi.useAddAlbumMutation()
-  console.log(results)
+  console.log(albumsApi.useAddAlbumMutation())
 
   const handleAlbumAdd = () => {
     addAlbum(user)

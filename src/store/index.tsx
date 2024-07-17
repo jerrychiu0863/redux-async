@@ -13,6 +13,9 @@ export const store = configureStore({
   }
 })
 
+// For dev
+// window.store = store
+
 setupListeners(store.dispatch)
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
