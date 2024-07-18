@@ -2,15 +2,31 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { User } from "../../type";
 import { faker } from "@faker-js/faker";
 
-type Album = {
+export type Album = {
   title: string;
   id: string;
   userId: string;
 }
 
+// DEV ONLU
+const pause = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration)
+  })
+}
+
+
+
 const albumsApi = createApi({
   reducerPath: 'albums',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3005' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:3005',
+    fetchFn: async (...args) => {
+      // For Dev Only
+      await pause(1000)
+      return fetch(...args)
+    }
+  }),
   tagTypes: ['Album'],
   endpoints: (builder) => ({
     fetchAlbums: builder.query<Album[], User>({
