@@ -27,7 +27,7 @@ const albumsApi = createApi({
       return fetch(...args)
     }
   }),
-  tagTypes: ['Album'],
+  tagTypes: ['Album', 'UserAlbum'],
   endpoints: (builder) => ({
     fetchAlbums: builder.query<Album[], User>({
       // result: This is the data returned from the server in response to the query. 
@@ -38,7 +38,13 @@ const albumsApi = createApi({
 
       // user: This is the argument passed to the query when it is initiated. In this case, 
       // it is the User object which is used to specify the user for whom the albums are being fetched.
-      providesTags: (result, error, user) => [{ type: 'Album', id: user?.id }],
+      providesTags: (result, error, user) => {
+        // console.log(result.map(user => { return { type: 'Album' as const, id: user.id } }));
+
+        return result
+          ? [...result.map(album => { return { type: 'Album' as const, id: album.id } }), { type: 'UserAlbum', id: user.id }]
+          : [{ type: 'UserAlbum', id: user.id }]
+      },
       query(user) {
         return {
           url: '/albums',
@@ -50,7 +56,7 @@ const albumsApi = createApi({
       }
     }),
     addAlbum: builder.mutation<Album, User>({
-      invalidatesTags: (result, error, user) => [{ type: 'Album', id: user?.id }],
+      invalidatesTags: (result, error, user) => [{ type: 'UserAlbum', id: user?.id }],
       query(user) {
         return {
           url: '/albums',
@@ -59,6 +65,19 @@ const albumsApi = createApi({
             userId: user.id,
             title: faker.commerce.productName()
           }
+        }
+      }
+    }),
+    removeAlbum: builder.mutation<Album, Album>({
+      invalidatesTags: (result, error, album) => {
+        console.log(album)
+        // return []
+        return [{ type: 'Album', id: album?.id }]
+      },
+      query(album) {
+        return {
+          url: `/albums/${album.id}`,
+          method: 'DELETE'
         }
       }
     })

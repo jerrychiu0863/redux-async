@@ -11,42 +11,33 @@
     {
       "id": "5032",
       "name": "Maria McDermott PhD"
-    },
-    {
-      "id": "1599",
-      "name": "Gary Jacobs"
     }
   ],
   "albums": [
-    {
-      "id": "10",
-      "title": "Hiking",
-      "userId": "7048"
-    },
-    {
-      "id": "11",
-      "title": "TT",
-      "userId": "7048"
-    },
     {
       "id": "20",
       "title": "Jump",
       "userId": "32ec"
     },
     {
-      "id": "4e9c",
+      "id": "9fbc",
       "userId": "7048",
-      "title": "Licensed Rubber Mouse"
+      "title": "Handmade Soft Mouse"
     },
     {
-      "id": "b5ae",
-      "userId": "7048",
-      "title": "Modern Plastic Car"
+      "id": "d36f",
+      "userId": "5032",
+      "title": "Luxurious Fresh Towels"
     },
     {
-      "id": "4dd7",
+      "id": "b152",
       "userId": "7048",
-      "title": "Sleek Wooden Cheese"
+      "title": "Handcrafted Frozen Soap"
+    },
+    {
+      "id": "37e5",
+      "userId": "7048",
+      "title": "Tasty Cotton Tuna"
     }
   ],
   "photos": []

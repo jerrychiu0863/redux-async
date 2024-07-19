@@ -9,15 +9,15 @@ type AblumsListProps = {
 }
 
 function AlbumsList({ user }: AblumsListProps) {
-  const { data, error, isLoading, isFetching } = albumsApi.useFetchAlbumsQuery(user)
+  const { data, error, isFetching } = albumsApi.useFetchAlbumsQuery(user)
   const [addAlbum, { isLoading: isAddAlbumLoading }] = albumsApi.useAddAlbumMutation()
-  console.log(albumsApi.useFetchAlbumsQuery(user))
+
   const handleAlbumAdd = () => {
     addAlbum(user)
   }
 
   let content;
-  if (isFetching || isLoading) {
+  if (isFetching) {
     content = <Skeleton times={3} className="h-10 w-full" />
   } else if (error) {
     content = <div>Error loading albums</div>
