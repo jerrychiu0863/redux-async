@@ -42,9 +42,14 @@
   ],
   "photos": [
     {
-      "id": "a044",
+      "id": "3e3f",
+      "albumId": "b152",
+      "url": "https://loremflickr.com/150/150/abstract?lock=96899"
+    },
+    {
+      "id": "6594",
       "albumId": "9fbc",
-      "url": "https://loremflickr.com/640/480"
+      "url": "https://loremflickr.com/150/150/abstract?lock=85629"
     }
   ]
 }
