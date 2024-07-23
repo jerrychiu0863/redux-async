@@ -40,5 +40,11 @@
       "title": "Tasty Cotton Tuna"
     }
   ],
-  "photos": []
+  "photos": [
+    {
+      "id": "a044",
+      "albumId": "9fbc",
+      "url": "https://loremflickr.com/640/480"
+    }
+  ]
 }

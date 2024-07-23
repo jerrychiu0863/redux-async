@@ -15,8 +15,6 @@ const pause = (duration: number) => {
   })
 }
 
-
-
 const albumsApi = createApi({
   reducerPath: 'albums',
   baseQuery: fetchBaseQuery({
@@ -70,7 +68,7 @@ const albumsApi = createApi({
     }),
     removeAlbum: builder.mutation<Album, Album>({
       invalidatesTags: (result, error, album) => {
-        console.log(album)
+        // console.log(album)
         // return []
         return [{ type: 'Album', id: album?.id }]
       },

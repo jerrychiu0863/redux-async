@@ -3,6 +3,7 @@ import Button from "./Button";
 import { GoTrashcan } from "react-icons/go";
 import ExpandablePanel from "./ExpandablePanel";
 import { albumsApi } from "../store/apis/albumsApi";
+import PhotoList from "./PhotoList";
 
 type AlbumListItemProps = {
   album: Album
@@ -25,7 +26,7 @@ function AlbumListItem({ album }: AlbumListItemProps) {
 
   return (
     <ExpandablePanel header={header}>
-      Ablum
+      <PhotoList album={album} />
     </ExpandablePanel>
   )
 }
